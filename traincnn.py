@@ -1,9 +1,24 @@
 import tensorflow as tf
 import numpy as np
+
+print """
+
+================================
+Get the Garden Data
+================================
+
+"""
 import gardendata
 NUM_CLASSES = len(gardendata.labels)
 
 
+print """
+
+================================
+Get the Garden Graph
+================================
+
+"""
 import gardengraph
 graph = gardengraph.cnn(NUM_CLASSES)
 
@@ -82,6 +97,7 @@ def confusionMatrix(y_in,y_out) :
 y_in , y_out = sess.run([graph.y_,graph.y],test_feed)
 confuse = np.array(confusionMatrix(y_in,y_out))
 
+
 print """
 
 ================================
@@ -103,3 +119,13 @@ labels = np.array(gardendata.labels)
 accuracy = 100. * np.array([ confuse[i,i] for i in range(confuse.shape[0]) ]) / np.sum( confuse , 0 ) 
 print "The most accurate labels are :",labels[ np.argsort( accuracy )[-1:-11:-1] ]
 
+
+print """
+
+================================
+Save the model to disk
+================================
+
+"""
+saver = tf.train.Saver()
+saver.save(sess,"meta-data/model")
