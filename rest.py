@@ -1,3 +1,4 @@
+import thread
 import falcon
 import json
 import topwords
@@ -67,14 +68,17 @@ def imageToVector(image) :
 
 name_vector_names = []
 name_vector_vector =[]
-for label in topwords.top_labels :
+def getTheVectors() :
+  for label in topwords.top_labels :
     for name in topwords.get_files_for_label(label) :
         try :
             name_vector_vector.append( imageToVector( getImage( name ) ) )
             name_vector_names.append( name )
         except :
             pass
-name_vector_names = np.array(name_vector_names)
+
+thread.start_new_thread( getTheVectors , () )
+
 
 def distance(vector1,vector2) :
     return spatial.distance.cosine( vector1, vector2 )
@@ -82,7 +86,7 @@ def distance(vector1,vector2) :
 def nearestNeighbour(image_vector) :
     distances = np.array([ distance(image_vector,reference) for reference in name_vector_vector ])
     nearest = np.argsort( distances )[:10]
-    return name_vector_names[nearest]
+    return np.array(name_vector_names)[nearest]
 
 
 
