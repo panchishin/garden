@@ -34,7 +34,6 @@ Define the training cycle
 
 """
 test_feed = { graph.x: gardendata.test.images, graph.y_: gardendata.test.labels, graph.keep_prob:1.0, graph.training:False }
-LEARNING_RATE = 1e-4
 def epochCycle(epoch):
   gardendata.train.shuffle()
   batch_size = 50
@@ -45,7 +44,7 @@ def epochCycle(epoch):
     train_feed = { graph.x: gardendata.train.images[start_index:end_index], 
                   graph.y_: gardendata.train.labels[start_index:end_index], 
                   graph.keep_prob:0.5, 
-                  graph.learning_rate:LEARNING_RATE, 
+                  graph.learning_rate:1e-4, 
                   graph.training:True }
     result_loss, result_correct , _ = sess.run([graph.loss,graph.percent_correct,graph.train], feed_dict=train_feed)
     if batch == batches - 1 and epoch % 5 == 0 :
@@ -81,7 +80,7 @@ def confusionMatrix(y_in,y_out) :
     return confusion
 
 y_in , y_out = sess.run([graph.y_,graph.y],test_feed)
-print confusionMatrix(y_in,y_out)
+confuse = np.array(confusionMatrix(y_in,y_out))
 
 print """
 
@@ -90,9 +89,17 @@ How close were the estimates
 ================================
 
 """
-def buildRank(y_in,y_out,depth=5) :
+def buildRank(y_in,y_out,depth=6) :
     ranks = np.argmax( ( np.argsort(y_out,1) == np.argmax(y_in,1).reshape([-1,1]))[:,-depth:] ,1)
-    print [ (num,np.sum( ranks == num )) for num in range(depth) ]
+    print np.sum( ranks > 0 ),"/",ranks.shape[0]," = %4.1f"%(100.0 * np.sum( ranks > 0 ) / ranks.shape[0]),"% are in the top",(depth-1)
+    print "This is the breakdown (position 5 = top , position 0 = flop) :"
+    for result in [ (num,np.sum( ranks == num )) for num in range(depth) ] :
+       print "    position",result[0],"count",result[1]
     return ranks
 
-ranks = buildRank(y_in,y_out,NUM_CLASSES)
+ranks = buildRank(y_in,y_out)
+
+labels = np.array(gardendata.labels)
+accuracy = 100. * np.array([ confuse[i,i] for i in range(confuse.shape[0]) ]) / np.sum( confuse , 0 ) 
+print "The most accurate labels are :",labels[ np.argsort( accuracy )[-1:-11:-1] ]
+
