@@ -3,7 +3,7 @@ import images
 import numpy as np
 
 labels = ['hibiscus','begonia','hosta','iris','coleus','maple','geranium','peony','azalea','aloe','orchid','ivy','sedum','petunia','dracaena','dahlia','dianthus','bromeliad','japonica','magnolia','pothos','oak','schefflera','clematis','creeper','rhododendron','cyclamen','fern','jade','lantana','dieffenbachia','daisy','tulip','cactus','croton']
-labels = ['cactus','tulip','peony','fern']
+labels = ['cactus','tulip'] #,'peony','fern']
 
 def get_files_for_label(label) :
     return topwords.confirmed[ topwords.labelMatrix[:,topwords.words.index(label)] == 1 ]
