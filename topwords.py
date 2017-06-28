@@ -14,3 +14,4 @@ def labelToHot(label) :
 labelMatrix = np.array([ labelToHot(all_data[imageName]['label']) for imageName in confirmed  ])
 
 
+top_labels = ['hibiscus','begonia','hosta','iris','coleus','maple','geranium','peony','azalea','aloe','orchid','ivy','sedum','petunia','dracaena','dahlia','dianthus','bromeliad','japonica','magnolia','pothos','oak','schefflera','clematis','creeper','rhododendron','cyclamen','fern','jade','lantana','dieffenbachia','daisy','tulip','cactus','croton']

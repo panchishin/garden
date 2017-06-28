@@ -71,11 +71,11 @@ def epochCycle(epoch):
 print """
 
 ================================
-Do 500 training Epochs
+Do 250 training Epochs
 ================================
 
 """
-for epoch in range(500):
+for epoch in range(250):
     epochCycle(epoch)
 
 
