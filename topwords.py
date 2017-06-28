@@ -15,3 +15,7 @@ labelMatrix = np.array([ labelToHot(all_data[imageName]['label']) for imageName 
 
 
 top_labels = ['hibiscus','begonia','hosta','iris','coleus','maple','geranium','peony','azalea','aloe','orchid','ivy','sedum','petunia','dracaena','dahlia','dianthus','bromeliad','japonica','magnolia','pothos','oak','schefflera','clematis','creeper','rhododendron','cyclamen','fern','jade','lantana','dieffenbachia','daisy','tulip','cactus','croton']
+
+
+def get_files_for_label(label) :
+    return confirmed[ labelMatrix[:,words.index(label)] == 1 ]

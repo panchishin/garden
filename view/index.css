@@ -1,0 +1,46 @@
+body {
+    margin : 1em;
+    padding : 0em;
+    font-size : 12px;
+    background-color: #eee;
+}
+button {
+    padding : .25em;
+    margin : .25em;
+}
+
+img {
+    margin : .25em;
+    width : 200px;
+}
+
+div.thumbs {
+    width : 500px;
+}
+div.thumbs img {
+    width : 100px;
+}
+
+div.bordered {
+    padding : 0em 1em;
+    margin : 0.5em;
+    border-style : solid;
+    border-width : 1px;
+    border-color : gray;
+    background-color : white;
+    height : 60em;
+}
+
+div.right {
+    float: right;
+    padding-right: 2em;    
+}
+
+div.left {
+    display: inline-block;
+    vertical-align: top;  
+}
+
+p {
+    font-size : .5em;
+}

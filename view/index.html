@@ -1,0 +1,36 @@
+<html ng-app="garden">
+<head>
+	<title>Garden Image Browser</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="/view/index.js"></script>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/view/index.css"/>
+</head>
+<body ng-controller="gardenController">
+
+	<h1>Garden Image Browser</h1>
+        <div class="left bordered">
+        <button type="button" class="btn btn-primary btn-sm" ng-click="randomizeImage()">Randomize Image</button>
+        <hr/>
+          <h2>{{data.current.name}}<h2>
+          <img src="{{data.current.image}}"></img>
+          <p>User label '{{data.current.text}}'</p>
+	</div>
+
+        <div class="left bordered">
+	        <button type="button" class="btn btn-primary btn-sm" ng-click="predictLabels()">Predict Labels</button>
+	        <hr/>
+	        <div ng-repeat="label in data.predictedlabels">
+		<button type="button" class="btn btn-primary btn-sm" > {{label}} </button>
+	        </div>
+	</div>
+
+        <div class="left thumbs bordered">
+	        <button type="button" class="btn btn-primary btn-sm" ng-click="showSimilarImages()">Show Similar Images</button>
+	        <hr/>
+	        <div><span ng-repeat="info in data.similarImages">
+	          	<img src="{{info.image}}" ng-click="focusOnThisImage(info)"></img>
+	        </span></div>
+        </div>
+</body>
+</html>

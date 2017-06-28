@@ -1,9 +1,16 @@
 import json
+import topwords
 import tensorflow as tf
 import numpy as np
 import os
 import urllib
 import sys
+
+BASE_URL = 'https://mygardenorg.s3.amazonaws.com/plantifier/'
+
+def nameToURL(name) :
+    return BASE_URL + name
+
 
 class image_reader_graph:
     def __init__(self) :
@@ -17,7 +24,7 @@ class image_reader_graph:
 
 def download(image_name) :
     print "downloading",image_name
-    urllib.urlretrieve('https://mygardenorg.s3.amazonaws.com/plantifier/' + image_name, 'data/' + image_name )
+    urllib.urlretrieve(nameToURL(image_name), 'data/' + image_name )
 
 
 class from_names:
