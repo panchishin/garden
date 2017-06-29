@@ -2,6 +2,9 @@
 
 This is a proof of concept to categorize plants and image search similar looking plants using image recognition.
 
+## Screen Shot
+
+![front page of example app](https://raw.githubusercontent.com/panchishin/garden/master/screenshots/example1.png)
 
 ## Execution
 
