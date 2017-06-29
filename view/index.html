@@ -9,24 +9,27 @@
 <body ng-controller="gardenController">
 
 	<h1>Garden Image Browser</h1>
-        <div class="left bordered">
-        <button type="button" class="btn btn-primary btn-sm" ng-click="randomizeImage()">Randomize Image</button>
-        <hr/>
-          <h2>{{data.current.name}}<h2>
-          <img src="{{data.current.image}}"></img>
-          <p>User label '{{data.current.text}}'</p>
+        <div class="left bordered focusimage">
+        	<h3>Focus Image</h3>
+	        <hr/>
+	        <button type="button" class="btn btn-primary btn-sm" ng-click="randomizeImage()">Randomize Image</button>
+	        <button type="button" class="btn btn-primary btn-sm" ng-click="showSimilarImages()">Show Similar Images</button>
+	        <hr/>
+		<img src="{{data.current.image}}"></img>
+		<h3>{{data.current.name}}<h3>
+		<p>User label '{{data.current.text}}'</p>
 	</div>
 
         <div class="left bordered">
-	        <button type="button" class="btn btn-primary btn-sm" ng-click="predictLabels()">Predict Labels</button>
+	        <h3>Predict Labels</h3>
 	        <hr/>
-	        <div ng-repeat="label in data.predictedlabels">
-		<button type="button" class="btn btn-primary btn-sm" > {{label}} </button>
+	        <div ng-repeat="item in data.predictedlabels">
+		<button type="button" class="btn btn-primary btn-sm" > {{item.label}} {{item.prob}}% </button>
 	        </div>
 	</div>
 
         <div class="left thumbs bordered">
-	        <button type="button" class="btn btn-primary btn-sm" ng-click="showSimilarImages()">Show Similar Images</button>
+	        <h3>Similar Images</h3>
 	        <hr/>
 	        <div><span ng-repeat="info in data.similarImages">
 	          	<img src="{{info.image}}" ng-click="focusOnThisImage(info)"></img>

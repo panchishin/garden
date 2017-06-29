@@ -59,6 +59,7 @@ class cnn :
     self.conv.append( fully_connected( self.conv[-1], 64, num_classes, name="label_out") )
 
     self.y              = self.conv[-1]
+    self.y_softmax      = tf.nn.softmax(self.y)
 
     self.loss           = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=self.y, labels=self.y_), name="loss")
     self.update_ops     = tf.get_collection(tf.GraphKeys.UPDATE_OPS)

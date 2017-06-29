@@ -50,8 +50,9 @@ Predict label definition
 """
 def predictLabel(image) :
     test_feed = { graph.x: image, graph.keep_prob:1.0, graph.training:False }
-    y_out = sess.run(graph.y,test_feed)
-    return labels[ np.argsort( y_out, 1 )[0,-5:] ][::-1]
+    softmax = sess.run(graph.y_softmax,test_feed)[0,:]
+    top5 = np.argsort( softmax )[-5:][::-1]
+    return [ {"label":pair[0],"prob":int(round(100*pair[1]))} for pair in zip(labels[ top5 ], softmax[ top5 ]) ]
 
 
 print """
@@ -69,8 +70,8 @@ def imageToVector(image) :
 name_vector_names = []
 name_vector_vector =[]
 def getTheVectors() :
-  for label in topwords.top_labels :
-    for name in topwords.get_files_for_label(label) :
+  for label in topwords.top_labels[:20] :
+    for name in topwords.get_files_for_label(label)[:10] :
         try :
             name_vector_vector.append( imageToVector( getImage( name ) ) )
             name_vector_names.append( name )
@@ -110,7 +111,7 @@ class Classify:
             "name" : img,
             "image" : images.nameToURL(img),
             "meta-data" : topwords.all_data[img] ,
-            "prediction" : predictLabel( getOrDownloadImage(img) ).tolist()
+            "prediction" : predictLabel( getOrDownloadImage(img) )
             } )
 
 class Similar:
