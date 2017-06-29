@@ -30,5 +30,12 @@ As a proof of concept, this application uses a small database
 of 12,000 images of plants spread across 35 categories.  Compared to MNIST, a benchmark
 machine learning data set, this data set is very small and has a lot of categories.
 
+## Future work
+
+ - [ ] Add a lot more data per category and more categories.
+ - [ ] Retrain the model regularly on a separate machine to incorporate new data.
+ - [ ] Backup newly trained models, because they take so long to train
+ - [ ] Add a DAC (denoising auto encoder) for unsupervised learning
+ - [ ] And of course with anything you put on the web, do a security check.
 
 
