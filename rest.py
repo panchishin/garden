@@ -70,8 +70,8 @@ def imageToVector(image) :
 name_vector_names = []
 name_vector_vector =[]
 def getTheVectors() :
-  for label in topwords.top_labels[:20] :
-    for name in topwords.get_files_for_label(label)[:10] :
+  for label in topwords.top_labels :
+    for name in topwords.get_files_for_label(label) :
         try :
             name_vector_vector.append( imageToVector( getImage( name ) ) )
             name_vector_names.append( name )
