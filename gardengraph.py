@@ -5,10 +5,10 @@ def parameter_count( shape , name="") :
 
 def weight_variable(shape, name="Weight_Variable"):
   parameter_count(shape,name)
-  return tf.Variable( tf.truncated_normal(shape, stddev=0.01) )
+  return tf.Variable( tf.truncated_normal(shape, stddev=0.01), name=name)
 
-def bias_variable(shape):
-  return tf.Variable( tf.constant(0.1, shape=shape) )
+def bias_variable(shape, name="Bias_Variable"):
+  return tf.Variable( tf.constant(0.1, shape=shape), name=name)
 
 def max_pool(x,stride=2, padding='SAME'):
   return tf.nn.max_pool(x, ksize=[1, stride, stride, 1], strides=[1, stride, stride, 1], padding=padding)
@@ -25,7 +25,7 @@ def conv_relu( x , layers_in , layers_out , width=6 , stride=1, padding='SAME', 
   h = conv( x , layers_in , layers_out , width , stride, padding )
   return tf.nn.relu( h , name=name)
 
-def batch_normalization( x, training, momentum=0.9 ) :
+def batch_normalization( x, training, momentum=0.99 ) :
   return tf.layers.batch_normalization( x, training=training, momentum=momentum )
 
 def fully_connected( x , size_in , size_out, name="fully_connected" ):
