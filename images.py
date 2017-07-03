@@ -17,6 +17,7 @@ class image_reader_graph:
         self.img_name = tf.placeholder( dtype = tf.string )
         self.img = tf.image.decode_jpeg( tf.read_file(self.img_name), channels=3 )
         self.img = tf.image.resize_image_with_crop_or_pad( self.img , 120,120 )
+        self.img = tf.cast( self.img , dtype=tf.float32 )
         self.img = self.img / 256.0
         self.img_flip = tf.image.flip_left_right( self.img )
 
