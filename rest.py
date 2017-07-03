@@ -51,7 +51,7 @@ Predict label definition
 def predictLabel(image) :
     test_feed = { graph.x: image, graph.keep_prob:1.0, graph.training:False }
     softmax = sess.run(graph.y_softmax,test_feed)[0,:]
-    top5 = np.argsort( softmax )[-5:][::-1]
+    top5 = np.argsort( softmax )[::-1]
     return [ {"label":pair[0],"prob":int(round(100*pair[1]))} for pair in zip(labels[ top5 ], softmax[ top5 ]) ]
 
 
