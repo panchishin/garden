@@ -84,56 +84,56 @@ Do 250 training Epochs
 ================================
 
 
-epoch 0 error 0.960000000894 loss 3.54358   test error 0.970000002533 loss 3.5671
-epoch 5 error 0.920000001788 loss 3.39965   test error 0.922857142985 loss 3.31833
-epoch 10 error 0.920000001788 loss 3.15688   test error 0.902857147157 loss 3.18549
-epoch 15 error 0.90000000596 loss 3.12578   test error 0.881428577006 loss 3.12561
-epoch 20 error 0.820000007749 loss 2.97417   test error 0.882857143879 loss 3.10224
-epoch 25 error 0.940000001341 loss 3.21536   test error 0.888571441174 loss 3.06187
-epoch 30 error 0.82000002265 loss 2.99212   test error 0.885714292526 loss 3.03428
-epoch 35 error 0.90000000596 loss 2.9921   test error 0.877142861485 loss 3.00568
-epoch 40 error 0.880000010133 loss 2.9717   test error 0.87857144326 loss 2.98292
-epoch 45 error 0.860000014305 loss 3.02527   test error 0.862857148051 loss 2.97323
-epoch 50 error 0.780000001192 loss 2.97932   test error 0.861428588629 loss 2.94733
-epoch 55 error 0.859999999404 loss 3.08116   test error 0.858571439981 loss 2.93981
-epoch 60 error 0.859999999404 loss 2.95632   test error 0.861428573728 loss 2.94028
-epoch 65 error 0.859999999404 loss 3.09743   test error 0.844285726547 loss 2.91737
-epoch 70 error 0.760000005364 loss 2.91668   test error 0.848571419716 loss 2.90707
-epoch 75 error 0.840000003576 loss 2.73075   test error 0.835714280605 loss 2.85917
-epoch 80 error 0.840000003576 loss 3.02436   test error 0.832857146859 loss 2.84339
-epoch 85 error 0.780000001192 loss 2.92506   test error 0.821428567171 loss 2.82784
-epoch 90 error 0.820000007749 loss 3.02808   test error 0.821428567171 loss 2.83606
-epoch 95 error 0.700000017881 loss 2.65492   test error 0.818571433425 loss 2.84657
-epoch 100 error 0.780000001192 loss 2.87761   test error 0.829999998212 loss 2.80845
-epoch 105 error 0.859999999404 loss 2.95022   test error 0.805714294314 loss 2.79465
-epoch 110 error 0.640000015497 loss 2.66332   test error 0.808571442962 loss 2.7609
-epoch 115 error 0.880000010133 loss 2.82821   test error 0.810000002384 loss 2.76795
-epoch 120 error 0.800000011921 loss 2.74752   test error 0.801428586245 loss 2.74228
-epoch 125 error 0.819999992847 loss 2.68169   test error 0.78714287281 loss 2.75751
-epoch 130 error 0.82000002265 loss 2.75886   test error 0.79571428895 loss 2.74736
-epoch 135 error 0.72000002861 loss 2.69797   test error 0.788571447134 loss 2.72893
-epoch 140 error 0.660000026226 loss 2.4866   test error 0.79142858088 loss 2.73292
-epoch 145 error 0.780000001192 loss 2.69589   test error 0.780000001192 loss 2.7696
-epoch 150 error 0.780000001192 loss 2.62564   test error 0.777142867446 loss 2.72693
-epoch 155 error 0.640000015497 loss 2.39251   test error 0.782857149839 loss 2.73858
-epoch 160 error 0.700000017881 loss 2.45913   test error 0.767142862082 loss 2.72539
-epoch 165 error 0.840000003576 loss 2.59039   test error 0.770000010729 loss 2.73649
-epoch 170 error 0.740000009537 loss 2.40475   test error 0.7742857337 loss 2.70689
-epoch 175 error 0.660000026226 loss 2.35426   test error 0.761428579688 loss 2.71049
-epoch 180 error 0.680000007153 loss 2.40402   test error 0.764285713434 loss 2.70418
-epoch 185 error 0.740000009537 loss 2.34543   test error 0.788571447134 loss 2.73417
-epoch 190 error 0.740000009537 loss 2.64826   test error 0.764285713434 loss 2.69034
-epoch 195 error 0.760000005364 loss 2.64673   test error 0.764285728335 loss 2.69085
-epoch 200 error 0.72000002861 loss 2.18384   test error 0.757142871618 loss 2.69321
-epoch 205 error 0.639999985695 loss 2.12108   test error 0.770000010729 loss 2.70832
-epoch 210 error 0.640000015497 loss 2.36961   test error 0.765714287758 loss 2.74021
-epoch 215 error 0.740000009537 loss 2.32235   test error 0.764285728335 loss 2.75063
-epoch 220 error 0.680000007153 loss 2.16412   test error 0.757142856717 loss 2.68677
-epoch 225 error 0.620000004768 loss 2.24261   test error 0.760000005364 loss 2.72706
-epoch 230 error 0.620000004768 loss 2.24671   test error 0.777142867446 loss 2.72797
-epoch 235 error 0.680000007153 loss 2.25036   test error 0.768571436405 loss 2.71208
-epoch 240 error 0.579999983311 loss 1.98111   test error 0.764285713434 loss 2.79081
-epoch 245 error 0.560000002384 loss 2.01931   test error 0.765714287758 loss 2.78962
+epoch 0 error 0.940000001341 loss 3.51472   test error 0.944285716861 loss 3.53122
+epoch 5 error 1.0 loss 3.36753   test error 0.95000000298 loss 3.34657
+epoch 10 error 0.90000000596 loss 3.27596   test error 0.935714289546 loss 3.27632
+epoch 15 error 0.880000002682 loss 3.29685   test error 0.920000001788 loss 3.21875
+epoch 20 error 0.90000000596 loss 3.34683   test error 0.902857147157 loss 3.16752
+epoch 25 error 0.840000003576 loss 3.14361   test error 0.897142849863 loss 3.13532
+epoch 30 error 0.90000000596 loss 3.08403   test error 0.897142849863 loss 3.09619
+epoch 35 error 0.840000003576 loss 2.99761   test error 0.88714286685 loss 3.08508
+epoch 40 error 0.820000007749 loss 3.03851   test error 0.892857141793 loss 3.06769
+epoch 45 error 0.840000003576 loss 3.15518   test error 0.884285718203 loss 3.05301
+epoch 50 error 0.90000000596 loss 3.32149   test error 0.885714292526 loss 3.04176
+epoch 55 error 0.90000000596 loss 3.33271   test error 0.877142861485 loss 3.02186
+epoch 60 error 0.800000011921 loss 3.02408   test error 0.871428579092 loss 3.03281
+epoch 65 error 0.880000010133 loss 3.18638   test error 0.874285727739 loss 3.00646
+epoch 70 error 0.820000007749 loss 2.73802   test error 0.867142871022 loss 2.99392
+epoch 75 error 0.760000005364 loss 2.91745   test error 0.85857142508 loss 2.99845
+epoch 80 error 0.840000003576 loss 2.98291   test error 0.861428573728 loss 2.98745
+epoch 85 error 0.90000000596 loss 2.92487   test error 0.870000004768 loss 2.99174
+epoch 90 error 0.800000011921 loss 2.98217   test error 0.874285712838 loss 2.98134
+epoch 95 error 0.840000003576 loss 2.88217   test error 0.861428573728 loss 2.97363
+epoch 100 error 0.880000002682 loss 3.07835   test error 0.852857157588 loss 2.95925
+epoch 105 error 0.90000000596 loss 2.83732   test error 0.861428588629 loss 2.97168
+epoch 110 error 0.800000011921 loss 2.75662   test error 0.857142850757 loss 2.95447
+epoch 115 error 0.840000003576 loss 2.87259   test error 0.857142865658 loss 2.94447
+epoch 120 error 0.860000014305 loss 2.97389   test error 0.848571434617 loss 2.92781
+epoch 125 error 0.840000003576 loss 2.74142   test error 0.837142854929 loss 2.91317
+epoch 130 error 0.840000003576 loss 2.7801   test error 0.838571444154 loss 2.9106
+epoch 135 error 0.780000001192 loss 2.8483   test error 0.845714300871 loss 2.9224
+epoch 140 error 0.840000003576 loss 2.82907   test error 0.83714286983 loss 2.9261
+epoch 145 error 0.90000000596 loss 2.76358   test error 0.845714300871 loss 2.9002
+epoch 150 error 0.820000007749 loss 2.86341   test error 0.834285706282 loss 2.90282
+epoch 155 error 0.760000020266 loss 2.83847   test error 0.842857137322 loss 2.89344
+epoch 160 error 0.820000007749 loss 2.69779   test error 0.835714280605 loss 2.8782
+epoch 165 error 0.760000005364 loss 2.63349   test error 0.830000013113 loss 2.89052
+epoch 170 error 0.740000009537 loss 2.65193   test error 0.828571438789 loss 2.88638
+epoch 175 error 0.760000020266 loss 2.64909   test error 0.828571438789 loss 2.87674
+epoch 180 error 0.700000017881 loss 2.76158   test error 0.821428582072 loss 2.91516
+epoch 185 error 0.760000005364 loss 2.68578   test error 0.822857156396 loss 2.89326
+epoch 190 error 0.780000016093 loss 2.68409   test error 0.825714305043 loss 2.85824
+epoch 195 error 0.760000020266 loss 2.67987   test error 0.814285725355 loss 2.881
+epoch 200 error 0.820000007749 loss 2.72802   test error 0.822857141495 loss 2.86804
+epoch 205 error 0.660000026226 loss 2.52805   test error 0.827142864466 loss 2.86724
+epoch 210 error 0.700000017881 loss 2.41399   test error 0.828571438789 loss 2.9385
+epoch 215 error 0.660000026226 loss 2.33179   test error 0.815714299679 loss 2.87239
+epoch 220 error 0.680000007153 loss 2.35006   test error 0.794285714626 loss 2.88392
+epoch 225 error 0.72000002861 loss 2.66377   test error 0.802857160568 loss 2.82242
+epoch 230 error 0.680000007153 loss 2.43963   test error 0.807142868638 loss 2.85959
+epoch 235 error 0.820000007749 loss 2.64355   test error 0.814285710454 loss 2.90973
+epoch 240 error 0.79999999702 loss 2.37224   test error 0.798571452498 loss 2.88031
+epoch 245 error 0.72000002861 loss 2.70489   test error 0.811428576708 loss 2.89069
 
 
 ================================
@@ -148,16 +148,16 @@ How close were the estimates
 ================================
 
 
-428 / 700  = 61.1 % are in the top 5
+363 / 700  = 51.9 % are in the top 5
 This is the breakdown (position 5 = top , position 0 = flop) :
-    position 0 count 272
-    position 1 count 40
-    position 2 count 54
-    position 3 count 61
-    position 4 count 95
-    position 5 count 178
-The most accurate labels are : ['cactus' 'tulip' 'daisy' 'bromeliad' 'lantana' 'fern' 'sedum'
- 'dieffenbachia' 'schefflera' 'peony']
+    position 0 count 337
+    position 1 count 30
+    position 2 count 59
+    position 3 count 62
+    position 4 count 74
+    position 5 count 138
+The most accurate labels are : ['bromeliad' 'cyclamen' 'lantana' 'daisy' 'dieffenbachia' 'sedum' 'cactus'
+ 'iris' 'schefflera' 'croton']
 
 
 ================================
