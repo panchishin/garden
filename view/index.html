@@ -23,7 +23,7 @@
         <div class="left bordered">
 	        <h3>Predict Labels</h3>
 	        <hr/>
-	        <div ng-repeat="item in data.predictedlabels">
+	        <div ng-repeat="item in data.predictedlabels | limitTo : 18">
 		<button type="button" class="btn btn-primary btn-sm" > {{item.label}} {{item.prob}}% </button>
 	        </div>
 	</div>
