@@ -5,6 +5,7 @@ import numpy as np
 labels = topwords.top_labels
 
 def create_image_data(label_index) :
+    print labels[label_index],
     one_hot = np.zeros( [len(labels)] )
     one_hot[label_index] = 1
     return images.from_names().load( topwords.get_files_for_label( labels[label_index] ) , label=one_hot ) 
