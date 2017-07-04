@@ -22,6 +22,7 @@ import gardengraph
 graph = gardengraph.cnn(len(labels))
 saver = tf.train.Saver()
 saver.restore(sess,"meta-data/model")
+image_gradient = tf.gradients( tf.reduce_max(graph.y) , graph.x )
 
 
 print """
@@ -53,6 +54,31 @@ def predictLabel(image) :
     softmax = sess.run(graph.y_softmax,test_feed)[0,:]
     top5 = np.argsort( softmax )[::-1]
     return [ {"label":pair[0],"prob":int(round(100*pair[1]))} for pair in zip(labels[ top5 ], softmax[ top5 ]) ]
+
+
+print """
+================================
+Get gradient of image
+================================
+"""
+def gradientOf(image) :
+    test_feed = { graph.x: image, graph.keep_prob:1.0, graph.training:False }
+    mask = np.abs( sess.run( image_gradient, test_feed )[0].reshape([120,120,3]) )
+    mask = mask / np.max(mask)
+    return mask
+
+def arrayToImage(data) :
+    import scipy.misc
+    import tempfile
+    with tempfile.TemporaryFile() as fp :
+        scipy.misc.toimage( data ).save( fp=fp, format="PNG" )
+        fp.seek(0)
+        return fp.read()
+
+def falconRespondArrayAsImage(data,resp) :
+    resp.content_type = 'image/png'
+    resp.body = arrayToImage(data)
+
 
 
 print """
@@ -140,6 +166,21 @@ class RandomName:
         resp.body = json.dumps( {"name":name, "image":images.nameToURL(name) } )
 
 
+
+class PreprocessedImage:
+    def on_get(self, req, resp, img) :
+        if ".jpg" in img :
+            falconRespondArrayAsImage( getOrDownloadImage(img).reshape([120,120,3]) , resp )
+
+
+class GradientImage:
+    def on_get(self, req, resp, img) :
+        if ".jpg" in img :
+            data = getOrDownloadImage(img)
+            falconRespondArrayAsImage( gradientOf(data) * 0.75 + data.reshape([120,120,3]) * 0.25 , resp )
+
+
+
 print """
 ================================
 Add the endpoints to the service
@@ -151,6 +192,8 @@ api.add_route('/labels', Labels())
 api.add_route('/classify/{img}', Classify())
 api.add_route('/similar/{img}', Similar())
 api.add_route('/view/{file_name}', Display())
+api.add_route('/preprocess/{img}', PreprocessedImage())
+api.add_route('/gradient/{img}', GradientImage())
 api.add_route('/random', RandomName())
 
 

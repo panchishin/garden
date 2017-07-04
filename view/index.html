@@ -10,7 +10,7 @@
 
 	<h1>Garden Image Browser</h1>
         <div class="left bordered focusimage">
-        	<h3>Focus Image</h3>
+        	<h3>Image</h3>
 	        <hr/>
 	        <button type="button" class="btn btn-primary btn-sm" ng-click="randomizeImage()">Randomize Image</button>
 	        <button type="button" class="btn btn-primary btn-sm" ng-click="showSimilarImages()">Show Similar Images</button>
@@ -18,6 +18,17 @@
 		<img src="{{data.current.image}}"></img>
 		<h3>{{data.current.name}}<h3>
 		<p>User label '{{data.current.text}}'</p>
+	</div>
+
+        <div class="left bordered">
+	        <h3>Processing</h3>
+	        <hr/>
+	        <h4>Processed Image</h4>
+	        <img src="/preprocess/{{data.current.name}}"></img>
+	        <hr/>
+	        <h4>Focus of Attention</h4>
+	        <img src="/gradient/{{data.current.name}}"></img>
+	        </div>
 	</div>
 
         <div class="left bordered">
