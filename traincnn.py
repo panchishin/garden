@@ -63,9 +63,9 @@ def epochCycle(epoch):
                   graph.training:True }
     result_loss, result_correct , _ = sess.run([graph.loss,graph.percent_correct,graph.train], feed_dict=train_feed)
     if batch == batches - 1 and epoch % 5 == 0 :
-        print "epoch",epoch,"error",(1.0-result_correct),"loss",result_loss,
+        print "epoch",epoch,"error",round(1.0-result_correct,3),"loss",round(result_loss,3),
         result_loss, result_correct = sess.run([graph.loss,graph.percent_correct], feed_dict=test_feed)
-        print "  test error",(1.0-result_correct),"loss",result_loss
+        print "  test error",round(1.0-result_correct,3),"loss",round(result_loss,3)
 
 
 print """
