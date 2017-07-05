@@ -53,7 +53,7 @@ class cnn :
     self.conv.append( max_pool( self.conv[-1] )                                         )
     self.conv.append( conv_relu( self.conv[-1] , 64 , 64, width=3 , padding="VALID")    )
     self.conv.append( conv( self.conv[-1] , 64 , 64, width=3 , padding="VALID")    )
-    self.conv.append( tf.nn.max_pool(self.conv[-1], ksize=[1, 5, 5, 1], strides=[1, 1, 1, 1], padding='VALID') )
+    self.conv.append( tf.nn.avg_pool(self.conv[-1], ksize=[1, 5, 5, 1], strides=[1, 1, 1, 1], padding='VALID') )
     self.conv.append( tf.nn.sigmoid( tf.reshape(self.conv[-1], [-1,64] ), name="image_to_vector") )
     self.conv.append( tf.nn.dropout( self.conv[-1] , self.keep_prob , name="dropout" )  )
     self.conv.append( fully_connected( self.conv[-1], 64, num_classes, name="label_out") )
