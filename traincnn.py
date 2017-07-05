@@ -49,23 +49,42 @@ Define the training cycle
 
 """
 test_feed = { graph.x: gardendata.test.images, graph.y_: gardendata.test.labels, graph.keep_prob:1.0, graph.training:False }
+
 def epochCycle(epoch):
   gardendata.train.shuffle()
-  batch_size = 50
-  batches = gardendata.train.labels.shape[0] / batch_size
-  for batch in range(batches) :
-    start_index = batch * batch_size
-    end_index = start_index + batch_size
-    train_feed = { graph.x: gardendata.train.images[start_index:end_index], 
-                  graph.y_: gardendata.train.labels[start_index:end_index], 
-                  graph.keep_prob:0.5, 
-                  graph.learning_rate:1e-4, 
-                  graph.training:True }
-    result_loss, result_correct , _ = sess.run([graph.loss,graph.percent_correct,graph.train], feed_dict=train_feed)
-    if batch == batches - 1 and epoch % 5 == 0 :
-        print "epoch",epoch,"error",round(1.0-result_correct,3),"loss",round(result_loss,3),
-        result_loss, result_correct = sess.run([graph.loss,graph.percent_correct], feed_dict=test_feed)
-        print "  test error",round(1.0-result_correct,3),"loss",round(result_loss,3)
+
+  def doWholeBatch( dataset , keep_prob=0.5, learning_rate=1e-4, training=True ) :
+    batch_size = 50
+    batches = dataset.labels.shape[0] / batch_size
+    total_loss = 0.
+    total_correct = 0.
+    for batch in range(batches) :
+      start_index = batch * batch_size
+      end_index = start_index + batch_size
+      train_feed = { graph.x: dataset.images[start_index:end_index], 
+                  graph.y_: dataset.labels[start_index:end_index], 
+                  graph.keep_prob:keep_prob, 
+                  graph.learning_rate:learning_rate, 
+                  graph.training:training }
+
+      if training :
+        result_loss, result_correct , _ = sess.run([graph.loss,graph.percent_correct,graph.train], feed_dict=train_feed)
+      else :
+        result_loss, result_correct = sess.run([graph.loss,graph.percent_correct], feed_dict=train_feed)
+
+      total_loss += result_loss
+      total_correct += result_correct
+
+    total_loss = total_loss / batches
+    total_correct = total_correct / batches
+
+    return total_loss , total_correct
+
+  result_loss , result_correct = doWholeBatch( gardendata.train , keep_prob=0.5, learning_rate=1e-4, training=True )
+  if epoch % 5 == 0 :
+    print "epoch",epoch,"error",round(1.0-result_correct,3),"loss",round(result_loss,3),
+    result_loss , result_correct = doWholeBatch( gardendata.test , keep_prob=1.0, learning_rate=1e-4, training=False )
+    print "  test error",round(1.0-result_correct,3),"loss",round(result_loss,3)
 
 
 print """
