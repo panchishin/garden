@@ -7,17 +7,18 @@ import urllib
 import sys
 
 BASE_URL = 'https://mygardenorg.s3.amazonaws.com/plantifier/'
+SIZE = 128
 
 def nameToURL(name) :
     return BASE_URL + name
 
 
 class image_reader_graph:
-    def __init__(self) :
+    def __init__(self, size=SIZE) :
         self.img_name = tf.placeholder( dtype = tf.string )
         self.img = tf.image.decode_jpeg( tf.read_file(self.img_name), channels=3 )
-        self.img = tf.image.resize_image_with_crop_or_pad( self.img , 240, 240 )
-        self.img = tf.image.resize_images( self.img, [120,120] )
+        self.img = tf.image.resize_image_with_crop_or_pad( self.img , size*2, size*2 )
+        self.img = tf.image.resize_images( self.img, [size,size] )
         self.img = self.img / 256.0
         self.img_flip = tf.image.flip_left_right( self.img )
 
@@ -28,13 +29,14 @@ def download(image_name) :
 
 
 class from_names:
-    def __init__(self) :
+    def __init__(self, size=SIZE) :
         self.names = []
         self.images = []
         self.labels = []
+        self.size = size
 
     def load(self,image_names,label=0) :
-        reader = image_reader_graph()
+        reader = image_reader_graph(self.size)
         with tf.Session() as sess :
             count = 0
             for name in image_names :

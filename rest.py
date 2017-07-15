@@ -10,7 +10,7 @@ import tensorflow as tf
 from scipy import spatial
 
 labels = np.array(topwords.top_labels)
-
+SIZE = 128
 
 print """
 ================================
@@ -41,7 +41,7 @@ def getOrDownloadImage(name) :
     return getImage(name)
 
 def getImage(name) :
-    return sess.run(img_reader.img, {img_reader.img_name : "data/"+name } ).reshape([1,120,120,3])
+    return sess.run(img_reader.img, {img_reader.img_name : "data/"+name } ).reshape([1,SIZE,SIZE,3])
 
 
 print """
@@ -63,7 +63,7 @@ Get gradient of image
 """
 def gradientOf(image) :
     test_feed = { graph.x: image, graph.keep_prob:1.0, graph.training:False }
-    mask = np.abs( sess.run( image_gradient, test_feed )[0].reshape([120,120,3]) )
+    mask = np.abs( sess.run( image_gradient, test_feed )[0].reshape([SIZE,SIZE,3]) )
     mask = mask / np.max(mask)
     return mask
 
@@ -170,14 +170,14 @@ class RandomName:
 class PreprocessedImage:
     def on_get(self, req, resp, img) :
         if ".jpg" in img :
-            falconRespondArrayAsImage( getOrDownloadImage(img).reshape([120,120,3]) , resp )
+            falconRespondArrayAsImage( getOrDownloadImage(img).reshape([SIZE,SIZE,3]) , resp )
 
 
 class GradientImage:
     def on_get(self, req, resp, img) :
         if ".jpg" in img :
             data = getOrDownloadImage(img)
-            falconRespondArrayAsImage( gradientOf(data) * 0.75 + data.reshape([120,120,3]) * 0.25 , resp )
+            falconRespondArrayAsImage( gradientOf(data) * 0.75 + data.reshape([SIZE,SIZE,3]) * 0.25 , resp )
 
 
 

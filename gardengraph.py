@@ -1,62 +1,51 @@
 import tensorflow as tf
-
-def parameter_count( shape , name="") :
-  print name," Parametes ",shape,", Count :",reduce(lambda x, y: x*y, shape )
-
-def weight_variable(shape, name="Weight_Variable"):
-  parameter_count(shape,name)
-  return tf.Variable( tf.truncated_normal(shape, stddev=0.01), name=name)
-
-def bias_variable(shape, name="Bias_Variable"):
-  return tf.Variable( tf.constant(0.1, shape=shape), name=name)
-
-def max_pool(x,stride=2, padding='SAME'):
-  return tf.nn.max_pool(x, ksize=[1, stride, stride, 1], strides=[1, stride, stride, 1], padding=padding)
-
-def avg_pool(x,stride=2, padding='SAME'):
-  return tf.nn.avg_pool(x, ksize=[1, stride, stride, 1], strides=[1, stride, stride, 1], padding=padding)
-
-def conv( x , layers_in , layers_out , width=6 , stride=1, padding='SAME', name="conv" ):
-  w = weight_variable( [width, width, layers_in, layers_out]) 
-  b = bias_variable( [layers_out] ) 
-  return tf.add( tf.nn.conv2d( x, w, strides= [1, stride, stride, 1], padding=padding ) , b , name=name)
-
-def conv_relu( x , layers_in , layers_out , width=6 , stride=1, padding='SAME', name="conv_relu" ):
-  h = conv( x , layers_in , layers_out , width , stride, padding )
-  return tf.nn.relu( h , name=name)
-
-def batch_normalization( x, training, momentum=0.99 ) :
-  return tf.layers.batch_normalization( x, training=training, momentum=momentum )
-
-def fully_connected( x , size_in , size_out, name="fully_connected" ):
-  W = weight_variable( [size_in, size_out] )
-  b = bias_variable( [size_out] )
-  return tf.add( tf.matmul(x, W) , b , name=name )
-
+import layer
 
 class cnn :
-  def __init__( self, num_classes ) :
+  def __init__( self, num_classes , image_size=128 , embedding_size=128 ) :
+    self.SIZE = image_size
+    self.EMBED_SIZE = embedding_size
 
     self.num_classes    = num_classes
 
-    self.x              = tf.placeholder( tf.float32, [None, 120, 120, 3], name="image_in" )
+    self.x              = tf.placeholder( tf.float32, [None, self.SIZE, self.SIZE, 3], name="image_in" )
     self.y_             = tf.placeholder( tf.float32, [None, num_classes], name="label_in" )
     self.keep_prob      = tf.placeholder( tf.float32, name="keep_prob" )
     self.learning_rate  = tf.placeholder( tf.float32, name="learning_rate" )
     self.training       = tf.placeholder( tf.bool, name="is_training_cycle" )
-
-    self.conv = []
     
-    self.conv.append( batch_normalization( self.x, self.training, momentum=0.9 )        )
-    self.conv.append( conv_relu( self.conv[-1] , 3 , 32 , width=11 , stride=5, padding="VALID" ) )
-    self.conv.append( conv_relu( self.conv[-1] , 32 , 64, width=5 , padding="VALID")    )
-    self.conv.append( max_pool( self.conv[-1] )                                         )
-    self.conv.append( conv_relu( self.conv[-1] , 64 , 64, width=3 , padding="VALID")    )
-    self.conv.append( conv( self.conv[-1] , 64 , 64, width=3 , padding="VALID")    )
-    self.conv.append( tf.nn.avg_pool(self.conv[-1], ksize=[1, 5, 5, 1], strides=[1, 1, 1, 1], padding='VALID') )
-    self.conv.append( tf.nn.sigmoid( tf.reshape(self.conv[-1], [-1,64] ), name="image_to_vector") )
-    self.conv.append( tf.nn.dropout( self.conv[-1] , self.keep_prob , name="dropout" )  )
-    self.conv.append( fully_connected( self.conv[-1], 64, num_classes, name="label_out") )
+    stages = []
+    stages.append( layer.batch_normalization( self.x , training=self.training ) )
+    stages.append( layer.conv_relu( stages[-1] , 3 , 16 , width=7, padding='SAME' ) )
+    stages.append( layer.resnet_block( stages[-1] , 16, 3 , training=self.training, momentum=0.99 ) )
+
+    stages.append( layer.resnet_downscale( stages[-1] ) )
+    stages.append( layer.resnet_block( stages[-1] , 32, 3 , training=self.training, momentum=0.99 ) )
+    # 2
+    stages.append( layer.resnet_downscale( stages[-1] ) )
+    stages.append( layer.resnet_block( stages[-1] , 64, 3 , training=self.training, momentum=0.99 ) )
+    # 4
+    stages.append( layer.resnet_downscale( stages[-1] ) )
+    stages.append( layer.resnet_narrow( stages[-1] , 128, 3 , training=self.training, narrowing=4, momentum=0.99 ) )
+    stages.append( layer.resnet_narrow( stages[-1] , 128, 3 , training=self.training, narrowing=4, momentum=0.99 ) )
+    # 8
+    stages.append( layer.resnet_downscale( stages[-1] ) )
+    stages.append( layer.resnet_narrow( stages[-1] , 256, 3 , training=self.training, narrowing=8, momentum=0.99 ) )
+    stages.append( layer.resnet_narrow( stages[-1] , 256, 3 , training=self.training, narrowing=8, momentum=0.99 ) )
+    # 16
+    stages.append( layer.resnet_downscale( stages[-1] ) )
+    stages.append( layer.resnet_narrow( stages[-1] , 512, 3 , training=self.training, narrowing=16, momentum=0.99 ) )
+    stages.append( layer.resnet_narrow( stages[-1] , 512, 3 , training=self.training, narrowing=16, momentum=0.99 ) )
+    # 32
+    stages.append( layer.avg_pool( stages[-1] , stride=4 ) )
+    # 4*32=128
+    stages.append( layer.conv_relu( stages[-1] , 512 , self.EMBED_SIZE , width=1, padding='SAME' ) )
+
+    stages.append( tf.nn.sigmoid( tf.reshape(stages[-1], [-1,self.EMBED_SIZE] ), name="image_to_vector") )
+    stages.append( tf.nn.dropout( stages[-1] , self.keep_prob , name="dropout" )  )
+    stages.append( layer.fully_connected( stages[-1], self.EMBED_SIZE, num_classes, name="label_out") )
+
+    self.conv = stages
 
     self.y              = self.conv[-1]
     self.y_softmax      = tf.nn.softmax(self.y)

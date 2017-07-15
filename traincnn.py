@@ -1,6 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
+IMAGE_SIZE = 128
 print """
 
 ================================
@@ -50,7 +51,7 @@ Define the training cycle
 """
 test_feed = { graph.x: gardendata.test.images, graph.y_: gardendata.test.labels, graph.keep_prob:1.0, graph.training:False }
 
-def epochCycle(epoch):
+def epochCycle(epoch,learning_rate=1e-4):
   gardendata.train.shuffle()
 
   def doWholeBatch( dataset , keep_prob=0.5, learning_rate=1e-4, training=True ) :
@@ -80,11 +81,11 @@ def epochCycle(epoch):
 
     return total_loss , total_correct
 
-  result_loss , result_correct = doWholeBatch( gardendata.train , keep_prob=0.5, learning_rate=1e-4, training=True )
+  result_loss , result_correct = doWholeBatch( gardendata.train , keep_prob=0.5, learning_rate=learning_rate, training=True )
   if epoch % 5 == 0 :
-    print "epoch",epoch,"error",round(1.0-result_correct,3),"loss",round(result_loss,3),
-    result_loss , result_correct = doWholeBatch( gardendata.test , keep_prob=1.0, learning_rate=1e-4, training=False )
-    print "  test error",round(1.0-result_correct,3),"loss",round(result_loss,3)
+    print "epoch",epoch,"error",round(100*(1.0-result_correct),2),"%, loss",round(result_loss,4),
+    result_loss , result_correct = doWholeBatch( gardendata.test , keep_prob=1.0, learning_rate=learning_rate, training=False )
+    print "  test error",round(100*(1.0-result_correct),2),"%, loss",round(result_loss,4)
 
 
 print """
@@ -94,8 +95,14 @@ Do 250 training Epochs
 ================================
 
 """
-for epoch in range(250):
-    epochCycle(epoch)
+for epoch in range(35):
+    epochCycle(epoch,learning_rate=1e-5)
+
+for epoch in range(35):
+    epochCycle(epoch,learning_rate=3e-5)
+
+for epoch in range(35):
+    epochCycle(epoch,learning_rate=1e-5)
 
 
 
