@@ -96,14 +96,7 @@ Do 250 training Epochs
 
 """
 for epoch in range(35):
-    epochCycle(epoch,learning_rate=1e-5)
-
-for epoch in range(35):
-    epochCycle(epoch,learning_rate=3e-5)
-
-for epoch in range(35):
-    epochCycle(epoch,learning_rate=1e-5)
-
+    epochCycle(epoch,learning_rate=1e-4)
 
 
 
