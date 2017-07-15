@@ -39,6 +39,8 @@ class cnn :
     stages.append( tf.nn.sigmoid( tf.reshape(stages[-1], [-1,self.EMBED_SIZE] ), name="image_to_vector") )
 
     stages.append( tf.nn.dropout( stages[-1] , self.keep_prob , name="dropout" )  )
+    stages.append( layer.fully_connected( stages[-1], self.EMBED_SIZE, self.EMBED_SIZE, name="pre_label_out") )
+    stages.append( tf.nn.sigmoid( stages[-1] ) )
     stages.append( layer.fully_connected( stages[-1], self.EMBED_SIZE, num_classes, name="label_out") )
 
     self.conv = stages
