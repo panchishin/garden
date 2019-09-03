@@ -4,7 +4,7 @@ This is a proof of concept to categorize plants and image search similar looking
 
 ## Screen Shot
 
-![front page of example app](https://raw.githubusercontent.com/panchishin/garden/master/screenshots/example1.png)
+![front page of example app](https://github.com/panchishin/garden/blob/master/screenshots/example2.png)
 
 ## Execution
 
